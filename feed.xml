@@ -6,9 +6,26 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 12 Oct 2014 22:14:43 +0800</pubDate>
-    <lastBuildDate>Sun, 12 Oct 2014 22:14:43 +0800</lastBuildDate>
+    <pubDate>Sun, 12 Oct 2014 23:03:03 +0800</pubDate>
+    <lastBuildDate>Sun, 12 Oct 2014 23:03:03 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>软工课程技术博客NO.0——自我介绍</title>
+        <description>&lt;p&gt;（自我介绍什么的真的会有人看嘛）&lt;/p&gt;
+
+&lt;p&gt;我叫赵志恒，性别男，性格比较内向，但是别人给我的评价是一对一交流能力很强，学习能力也比较强。不过缺点是比较懒，工作的时候容易被其他事情吸引注意力。比如这篇博客其实是22:34创建的，但是由于和室友聊天，直到22:57才写到这里。&lt;/p&gt;
+
+&lt;p&gt;从编程技术上说，我对C、C++、C#、Javascript、php等语言都比较熟悉，而且学习能力很强，短时间内可以学会一门新的语言。而且编程风格自我感觉还是非常不错，写出的代码可读性较强、易于修改和扩展。不过在其他的技术上，比如各种平台的部署，是我的弱项，看到繁杂的配置文件就感到头疼。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 12 Oct 2014 22:34:30 +0800</pubDate>
+        <link>http://yourdomain.com/secourse/2014/10/12/se-proposal.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/secourse/2014/10/12/se-proposal.html</guid>
+        
+        
+        <category>secourse</category>
+        
+      </item>
     
       <item>
         <title>在Ubuntu下的Popush配置——赵志恒</title>
