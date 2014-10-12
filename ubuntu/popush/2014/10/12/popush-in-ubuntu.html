@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>在Ubuntu下的Popush配置——赵志恒</title>
+    <meta name="description" content="商业Blog的广告看着太烦了，不过还没搞清楚Jekyll的高级用法。先把技术博客发了再慢慢研究>_<~
+">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://yourdomain.com/ubuntu/popush/2014/10/12/popush-in-ubuntu.html">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Zhiheng's Blog</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">在Ubuntu下的Popush配置——赵志恒</h1>
+    <p class="post-meta">Oct 12, 2014</p>
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">前言</h1>
+
+<p>这次配置Ubuntu环境下的Popush，在一个非常诡异的问题上卡了两天。最后问题的解决也非常戏剧性。这里留下一个悬念，先讲一下正经的配置过程。</p>
+
+<h1 id="section-1">环境配置</h1>
+
+<p>先列一下最后配置好的环境：</p>
+
+<ul>
+  <li>Ubuntu 14.04 LTS 32-bit</li>
+  <li>Nginx 1.5.5</li>
+  <li>Mongo DB 2.2.6</li>
+  <li>Node.js 0.10.18</li>
+  <li>gcc 4.8.2</li>
+  <li>gdb 7.7</li>
+  <li>Java 1.7.0_65</li>
+  <li>Python 2.7.6</li>
+  <li>Perl 5.18.2</li>
+  <li>Ruby 1.9.3</li>
+  <li>Lua 5.2.3</li>
+</ul>
+
+<p>在Ubuntu下，大致有两种常用的安装软件的方式，一种是传统Linux的Makefile安装，另一种是Ubuntu的apt-get命令安装，其中apt-get的几种常用命令如下：</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">apt-get update</span>
+<span class="go">apt-get install packagename</span>
+<span class="go">apt-get remove packagename</span></code></pre></div>
+
+<p>与Makefile相比，apt-get基本一条命令就可以自动安装，并且自动设置好PATH变量等信息，在安装Java时这个优势尤为明显。因此除了一些需要特殊配置的软件外，都采用apt-get方式安装。</p>
+
+<p>接下来按照上面的顺序介绍每个软件具体的安装。</p>
+
+<h4 id="ubuntu-1404-lts-32-bit">Ubuntu 14.04 LTS 32-bit</h4>
+
+<p>这个没什么可说的，网上有大量安装方法。我这里是直接用安装在了旧电脑的硬盘上，这样速度会比用虚拟机或者wubi更快一些。</p>
+
+<h4 id="nginx-155">Nginx 1.5.5</h4>
+
+<p>因为直接apt-get的版本比较旧，Nginx我采用的是源代码Makefile安装。Nginx的安装有两个依赖的模块：Zlib和PCRE。其中Zlib在Ubuntu的软件源中没有，因此需要下载源码安装。PCRE可以直接用apt-get安装，命令如下：</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo apt-get install libpcre3 libpcre3-dev</span></code></pre></div>
+
+<p>之后直接在Nginx源码目录下输入以下命令：</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">./configure</span>
+<span class="go">sudo make install</span></code></pre></div>
+
+<p>即可完成Nginx的安装。安装完成后输入<code>nginx -v</code>，出现版本信息即为安装成功。</p>
+
+<h4 id="mongo-db-226">Mongo DB 2.2.6</h4>
+
+<p>最开始我采用的是宫大汉学长配置文档中的下载编译后的文件安装方法，但是配置过程比较麻烦。后来出现了一些意外之后我需要重装Mongo DB，但是又不想再重复很麻烦的过程，于是找到了另一组学长（学姐）使用apt-get安装的方法，按照上面的步骤很轻松就配置好了Mongo DB。这里不再当搬运工了，直接贴出学长（学姐）的<a href="http://blog.sina.com.cn/s/blog_d83eec560101fm6m.html" title="没事你看这个干什么呢&gt;_&lt;~">Blog地址</a>。</p>
+
+<h4 id="nodejs-01018">Node.js 0.10.18</h4>
+
+<p>这个apt-get安装起来有点麻烦，直接下载源代码安装。刚开始安装的0.10.32好像还是有npm的问题，于是又换回了0.10.18。安装后输入<code>node -v</code>，出现版本信息即为安装成功。</p>
+
+<h4 id="section-2">其他语言环境</h4>
+
+<p>其他的语言环境可以完全用apt-get自动安装，其中gdb应该会和gcc一起安装，如果没有的话再单独安装一下就可以。Python和Perl是系统自带，无需安装。下面将安装的命令一起写出来。</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo apt-get install g++</span>
+<span class="go">sudo apt-get install openjdk-7-jdk</span>
+<span class="go">sudo apt-get install ruby</span>
+<span class="go">sudo apt-get install lua5.2</span></code></pre></div>
+
+<p>安装之后输入以下命令查看各个语言环境的版本。</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">gcc -v</span>
+<span class="go">gdb -v</span>
+<span class="go">java -version</span>
+<span class="go">ruby -v</span>
+<span class="go">lua -v</span></code></pre></div>
+
+<p>这样安装完成后除了python其他语言支持应该都没有问题了（如果用Makefile安装Java和Ruby可能会出问题）。Python问题的解决方法如下，在命令行中输入</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo gedit /etc/apparmor.d/abstractions/python</span></code></pre></div>
+
+<p>打开配置文件，在当中添加一行<code>/etc/passwd r,</code>即可。</p>
+
+<h1 id="popush">Popush部署</h1>
+
+<p>设项目文件夹的路径为<code>popush_path</code>，在命令行中依次输入以下命令，完成Popush的配置。</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo cp -r popush_path /popush</span>
+<span class="go">sudo chmod -R 777 /popush</span>
+<span class="go">cd /popush</span>
+<span class="go">sudo make deploy</span>
+<span class="go">sudo chmod -R 777 /etc/init.d/popush</span></code></pre></div>
+
+<p>之后输入</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo service popush start</span>
+<span class="go">sudo service nginx start</span></code></pre></div>
+
+<p>打开浏览器，输入<code>localhost</code>，即可看到Popush界面</p>
+
+<h1 id="section-3">正文</h1>
+
+<p><em>接下来才是本文的重点</em>，如果按照上面的步骤，配置顺利的话算上下载软件包的时间，最多2个小时就可以开心地Coding了。但是这个Popush却花费了我两天的时间。按照配置文档配置完之后注册登录都可以正常使用，但是创建文件后打开文件就出现内部错误，最郁闷的是这个出错还没有任何的提示信息。于是我先考虑是不是Nginx和Mongo DB的版本问题。于是把Nginx从1.7.6退到1.6.2退到1.6.0，最后退到1.5.5，还是没能解决问题。把Mongo DB退到了2.2.6，也没能解决问题。想完全删了重头来过，发现很多东西都删不干净。最后把相关的文件都删掉，打开浏览器还是能出现Popush的界面。</p>
+
+<p>这时候已经快迎来新的一天了，于是我借了组长的干净的Ubuntu重新尝试，一边在他的电脑上安装一边在我的电脑上删除。最后凌晨2点的时候我终于把自己电脑上的Popush删除干净了，到凌晨4点的时候终于宣告在新电脑上的尝试也以失败告终。</p>
+
+<p>这个问题最后的解决十分戏剧性，也具有指导意义。周六中午下课后我又在自己电脑上重复了一遍配置过程，npm安装的时候觉得非常困，于是就先去睡觉了，一下睡到了晚上6点。起来之后打开网页突然发现问题解决了。最后终于发现了问题所在：作业文档中要求替换mongojs和socket.io.js，我每次deploy之后都不厌其烦地按照作业要求替换了文件。但是问题是由于很多人没有注意到这个要求，在最新更新的版本中就把文件替换了，不需要自己再去替换。于是这个诡异的问题导致了我装了4个版本的Nginx和3个版本的Mongo DB，总计删除并重新部署Popush八次。最后由于睡觉醒后忘记了替换文件，终于解决了问题。这个经历也从侧面说明了充足的睡眠是多么的重要。</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Zhiheng's Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Zhiheng's Blog</li>
+          <li><a href="mailto:zhiheng3@live.cn">zhiheng3@live.cn</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/zhiheng3">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">zhiheng3</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">商业Blog的广告看着太烦了，不过还没搞清楚Jekyll的高级用法。先把技术博客发了再慢慢研究>_<~
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

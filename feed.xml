@@ -2,39 +2,129 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zhiheng's Blog</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.中文不行么
+    <description>商业Blog的广告看着太烦了，不过还没搞清楚Jekyll的高级用法。先把技术博客发了再慢慢研究&gt;_&lt;~
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 12 Oct 2014 14:37:47 +0800</pubDate>
-    <lastBuildDate>Sun, 12 Oct 2014 14:37:47 +0800</lastBuildDate>
+    <pubDate>Sun, 12 Oct 2014 21:55:34 +0800</pubDate>
+    <lastBuildDate>Sun, 12 Oct 2014 21:55:34 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code&gt;jekyll serve --watch&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+        <title>在Ubuntu下的Popush配置——赵志恒</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;前言&lt;/h1&gt;
 
-&lt;p&gt;To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;p&gt;这次配置Ubuntu环境下的Popush，在一个非常诡异的问题上卡了两天。最后问题的解决也非常戏剧性。这里留下一个悬念，先讲一下正经的配置过程。&lt;/p&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;h1 id=&quot;section-1&quot;&gt;环境配置&lt;/h1&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &amp;#39;Hi, Tom&amp;#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;先列一下最后配置好的环境：&lt;/p&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Ubuntu 14.04 LTS 32-bit&lt;/li&gt;
+  &lt;li&gt;Nginx 1.5.5&lt;/li&gt;
+  &lt;li&gt;Mongo DB 2.2.6&lt;/li&gt;
+  &lt;li&gt;Node.js 0.10.18&lt;/li&gt;
+  &lt;li&gt;gcc 4.8.2&lt;/li&gt;
+  &lt;li&gt;gdb 7.7&lt;/li&gt;
+  &lt;li&gt;Java 1.7.0_65&lt;/li&gt;
+  &lt;li&gt;Python 2.7.6&lt;/li&gt;
+  &lt;li&gt;Perl 5.18.2&lt;/li&gt;
+  &lt;li&gt;Ruby 1.9.3&lt;/li&gt;
+  &lt;li&gt;Lua 5.2.3&lt;/li&gt;
+&lt;/ul&gt;
 
+&lt;p&gt;在Ubuntu下，大致有两种常用的安装软件的方式，一种是传统Linux的Makefile安装，另一种是Ubuntu的apt-get命令安装，其中apt-get的几种常用命令如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;apt-get update&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;apt-get install packagename&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;apt-get remove packagename&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;与Makefile相比，apt-get基本一条命令就可以自动安装，并且自动设置好PATH变量等信息，在安装Java时这个优势尤为明显。因此除了一些需要特殊配置的软件外，都采用apt-get方式安装。&lt;/p&gt;
+
+&lt;p&gt;接下来按照上面的顺序介绍每个软件具体的安装。&lt;/p&gt;
+
+&lt;h4 id=&quot;ubuntu-1404-lts-32-bit&quot;&gt;Ubuntu 14.04 LTS 32-bit&lt;/h4&gt;
+
+&lt;p&gt;这个没什么可说的，网上有大量安装方法。我这里是直接用安装在了旧电脑的硬盘上，这样速度会比用虚拟机或者wubi更快一些。&lt;/p&gt;
+
+&lt;h4 id=&quot;nginx-155&quot;&gt;Nginx 1.5.5&lt;/h4&gt;
+
+&lt;p&gt;因为直接apt-get的版本比较旧，Nginx我采用的是源代码Makefile安装。Nginx的安装有两个依赖的模块：Zlib和PCRE。其中Zlib在Ubuntu的软件源中没有，因此需要下载源码安装。PCRE可以直接用apt-get安装，命令如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;sudo apt-get install libpcre3 libpcre3-dev&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;之后直接在Nginx源码目录下输入以下命令：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;./configure&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;sudo make install&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;即可完成Nginx的安装。安装完成后输入&lt;code&gt;nginx -v&lt;/code&gt;，出现版本信息即为安装成功。&lt;/p&gt;
+
+&lt;h4 id=&quot;mongo-db-226&quot;&gt;Mongo DB 2.2.6&lt;/h4&gt;
+
+&lt;p&gt;最开始我采用的是宫大汉学长配置文档中的下载编译后的文件安装方法，但是配置过程比较麻烦。后来出现了一些意外之后我需要重装Mongo DB，但是又不想再重复很麻烦的过程，于是找到了另一组学长（学姐）使用apt-get安装的方法，按照上面的步骤很轻松就配置好了Mongo DB。这里不再当搬运工了，直接贴出学长（学姐）的&lt;a href=&quot;http://blog.sina.com.cn/s/blog_d83eec560101fm6m.html&quot; title=&quot;没事你看这个干什么呢&amp;gt;_&amp;lt;~&quot;&gt;Blog地址&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h4 id=&quot;nodejs-01018&quot;&gt;Node.js 0.10.18&lt;/h4&gt;
+
+&lt;p&gt;这个apt-get安装起来有点麻烦，直接下载源代码安装。刚开始安装的0.10.32好像还是有npm的问题，于是又换回了0.10.18。安装后输入&lt;code&gt;node -v&lt;/code&gt;，出现版本信息即为安装成功。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;其他语言环境&lt;/h4&gt;
+
+&lt;p&gt;其他的语言环境可以完全用apt-get自动安装，其中gdb应该会和gcc一起安装，如果没有的话再单独安装一下就可以。Python和Perl是系统自带，无需安装。下面将安装的命令一起写出来。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;sudo apt-get install g++&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;sudo apt-get install openjdk-7-jdk&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;sudo apt-get install ruby&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;sudo apt-get install lua5.2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;安装之后输入以下命令查看各个语言环境的版本。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;gcc -v&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;gdb -v&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;java -version&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;ruby -v&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;lua -v&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;这样安装完成后除了python其他语言支持应该都没有问题了（如果用Makefile安装Java和Ruby可能会出问题）。Python问题的解决方法如下，在命令行中输入&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;sudo gedit /etc/apparmor.d/abstractions/python&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;打开配置文件，在当中添加一行&lt;code&gt;/etc/passwd r,&lt;/code&gt;即可。&lt;/p&gt;
+
+&lt;h1 id=&quot;popush&quot;&gt;Popush部署&lt;/h1&gt;
+
+&lt;p&gt;设项目文件夹的路径为&lt;code&gt;popush_path&lt;/code&gt;，在命令行中依次输入以下命令，完成Popush的配置。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;sudo cp -r popush_path /popush&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;sudo chmod -R 777 /popush&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;cd /popush&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;sudo make deploy&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;sudo chmod -R 777 /etc/init.d/popush&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;之后输入&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;go&quot;&gt;sudo service popush start&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;sudo service nginx start&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;打开浏览器，输入&lt;code&gt;localhost&lt;/code&gt;，即可看到Popush界面&lt;/p&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;正文&lt;/h1&gt;
+
+&lt;p&gt;&lt;em&gt;接下来才是本文的重点&lt;/em&gt;，如果按照上面的步骤，配置顺利的话算上下载软件包的时间，最多2个小时就可以开心地Coding了。但是这个Popush却花费了我两天的时间。按照配置文档配置完之后注册登录都可以正常使用，但是创建文件后打开文件就出现内部错误，最郁闷的是这个出错还没有任何的提示信息。于是我先考虑是不是Nginx和Mongo DB的版本问题。于是把Nginx从1.7.6退到1.6.2退到1.6.0，最后退到1.5.5，还是没能解决问题。把Mongo DB退到了2.2.6，也没能解决问题。想完全删了重头来过，发现很多东西都删不干净。最后把相关的文件都删掉，打开浏览器还是能出现Popush的界面。&lt;/p&gt;
+
+&lt;p&gt;这时候已经快迎来新的一天了，于是我借了组长的干净的Ubuntu重新尝试，一边在他的电脑上安装一边在我的电脑上删除。最后凌晨2点的时候我终于把自己电脑上的Popush删除干净了，到凌晨4点的时候终于宣告在新电脑上的尝试也以失败告终。&lt;/p&gt;
+
+&lt;p&gt;这个问题最后的解决十分戏剧性，也具有指导意义。周六中午下课后我又在自己电脑上重复了一遍配置过程，npm安装的时候觉得非常困，于是就先去睡觉了，一下睡到了晚上6点。起来之后打开网页突然发现问题解决了。最后终于发现了问题所在：作业文档中要求替换mongojs和socket.io.js，我每次deploy之后都不厌其烦地按照作业要求替换了文件。但是问题是由于很多人没有注意到这个要求，在最新更新的版本中就把文件替换了，不需要自己再去替换。于是这个诡异的问题导致了我装了4个版本的Nginx和3个版本的Mongo DB，总计删除并重新部署Popush八次。最后由于睡觉醒后忘记了替换文件，终于解决了问题。这个经历也从侧面说明了充足的睡眠是多么的重要。&lt;/p&gt;
 </description>
-        <pubDate>Sun, 12 Oct 2014 21:34:42 +0800</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2014/10/12/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2014/10/12/welcome-to-jekyll.html</guid>
+        <pubDate>Sun, 12 Oct 2014 19:34:30 +0800</pubDate>
+        <link>http://yourdomain.com/ubuntu/popush/2014/10/12/popush-in-ubuntu.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/ubuntu/popush/2014/10/12/popush-in-ubuntu.html</guid>
         
         
-        <category>jekyll</category>
+        <category>ubuntu</category>
         
-        <category>update</category>
+        <category>popush</category>
         
       </item>
     
