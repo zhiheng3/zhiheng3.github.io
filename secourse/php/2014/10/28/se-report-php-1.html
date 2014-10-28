@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>软件工程技术博客NO.1——PHP初步</title>
+    <meta name="description" content="商业Blog的广告看着太烦了，不过还没搞清楚Jekyll的高级用法。先把技术博客发了再慢慢研究>_<~
+">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://yourdomain.com/secourse/php/2014/10/28/se-report-php-1.html">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Zhiheng's Blog</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">软件工程技术博客NO.1——PHP初步</h1>
+    <p class="post-meta">Oct 28, 2014</p>
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">概述</h1>
+
+<p>在这个前期准备的阶段，我分配到的任务是学习php（其实是自己要求的）。
+由于我正好需要给一个学长帮忙做网站的一些后台程序，恰好需要学习php，于是就可以边学边干活啦（有点坑学长）。
+之前学长的后台是用python实现的，但是考虑到python学习成本比php要高，而且中文资料也更丰富，因此我还是推荐选择php作为后台。</p>
+
+<p>由于PHP是一门非常类似C的语言，所以学习语法的成本很低，我的主要精力都放在了PHP在Web端的交互上。
+最后也做出了一个DEMO，算是把PHP基本的交互成功实现了。接下来就对PHP进行一下简单的介绍，并且放出DEMO。</p>
+
+<h1 id="php">PHP学习</h1>
+
+<p>对php的初步学习大概分为几个部分，老规矩先给出列表。</p>
+
+<ul>
+  <li>php安装</li>
+  <li>php基本语法</li>
+  <li>php交互</li>
+  <li>第一个DEMO</li>
+</ul>
+
+<h4 id="php-1">php安装</h4>
+
+<p>像我这种懒人如果有Ubunut的apt软件源，是绝对不会用make安装软件包的，因此php的安装就是一行命令的问题。</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo apt-get install php5</span></code></pre></div>
+
+<p>于是这样php的安装就完成了，接下来就可以写出第一个程序进行测试了。</p>
+
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="s2">&quot;Hello world!</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="cp">?&gt;</span><span class="x"></span></code></pre></div>
+
+<p>保存为hello.php，在shell中输入</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">php -f hello.php</span></code></pre></div>
+
+<p>显示<code>Hello world!</code>，说明php已经成功安装。至于更高级的配置，现在还不急（其实是懒得搞）。</p>
+
+<h4 id="php-2">php基本语法</h4>
+
+<p>php最初的设计就是用来编写Web端程序的，因此php的脚本是在服务器上执行的，一段php代码最终返回的是HTML代码。
+下面是一段完整的代码示例（摘自w3school)。</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>我的第一张 PHP 页面<span class="nt">&lt;/h1&gt;</span>
+
+<span class="cp">&lt;?php</span>
+<span class="cp">echo &quot;Hello World!&quot;;</span>
+<span class="cp">?&gt;</span>  
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></div>
+
+<p>php的代码都用<code>&lt;?php .. ?&gt;</code>包含起来，字符串用双引号表示，每条语句结尾用分号结束，这是在这个例子中最基本的php语法。
+实际上前面说过php的语法和C是非常类似的，我学习的时候基本把语法部分都跳过去了。
+接下来着重说一下php语法和C的不同之处。</p>
+
+<p>最大的不同之处在于php的变量，php的变量是以$符号开头的，这一点在刚开始写php程序的时候经常会被忽略。
+除了$符号，其余的规则和C一致，这里就不专门贴出示例的代码了。
+并且php是一门弱类型语言，也就是说里面的变量都是不需要定义数据类型的，这一点和大多数脚本语言一致。</p>
+
+<p>php中的函数定义也和C语言略有不同，函数的定义语法如下</p>
+
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">functionName</span><span class="p">(</span><span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/*Code*/</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span></code></pre></div>
+
+<p>同样，php函数也不会显式定义返回值的类型。</p>
+
+<p>php的数组功能也比较强大，除了和C语言一样的用下标访问数组，还支持索引数组，即用字符串做下标访问。
+具体的使用细节会在后面的DEMO中给出，这里就不贴出代码了。</p>
+
+<h4 id="php-3">php交互</h4>
+
+<p>php处理前端表单的提交可以说是非常简单，前端提交的表单可以直接通过<code>$_GET</code>和<code>$_POST</code>变量获得前端提交表单的数据。
+具体的使用方法可以在DEMO中看到。</p>
+
+<p>至于php和数据库的交互，目前还没有学习，这方面的学习留到下一阶段。</p>
+
+<h1 id="demo">第一个DEMO</h1>
+
+<p>学习php后第一个DEMO是做了一个围棋水平评测的程序，这个程序我部署在了自己的电脑上，
+可以<a href="http://59.66.137.75/level/" title="没事你看这个干什么呢&gt;_&lt;~">简单试用一下</a>。
+由于做服务器的电脑是那台电池坏了的，因此每天断电的时间是不能访问的。
+并且由于现在用的是动态IP，所以给出的地址很可能失效，能不能上去就看人品啦&gt;_&lt;~。</p>
+
+<p>这里主要贴一下php和前端交互的代码，并对一些细节进行一下讲解。</p>
+
+<p>index.php中的javascript代码：</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Send post request to php code</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;./level.php&quot;</span><span class="p">,{</span>
+	<span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+	<span class="s2">&quot;level&quot;</span><span class="o">:</span> <span class="nx">curlevel</span><span class="p">,</span>
+	<span class="s2">&quot;amount&quot;</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+	<span class="p">},</span>
+	<span class="c1">// Start</span>
+	<span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+	    <span class="kd">var</span> <span class="nx">start_level</span> <span class="o">=</span> <span class="nx">curlevel</span><span class="p">;</span>
+	    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#start_level&quot;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">start_level</span><span class="p">);</span>
+	    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#submit&quot;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+	    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#main&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;display&quot;</span><span class="p">,</span> <span class="s2">&quot;block&quot;</span><span class="p">);</span>
+	    <span class="kd">var</span> <span class="nx">prob</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">parseJSON</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+	    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#number&quot;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">prob</span><span class="p">[</span><span class="s2">&quot;probnumber&quot;</span><span class="p">]);</span>
+	    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#level&quot;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">prob</span><span class="p">[</span><span class="s2">&quot;problevel&quot;</span><span class="p">]);</span>
+	    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#type&quot;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">prob</span><span class="p">[</span><span class="s2">&quot;probtype&quot;</span><span class="p">]);</span>
+	    <span class="nx">status</span> <span class="o">=</span> <span class="nx">prob</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">];</span> <span class="c1">// Important!</span>
+<span class="p">});</span></code></pre></div>
+
+<p>level.php中的部分php代码：</p>
+
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;true&quot;</span><span class="p">){</span>
+	<span class="nv">$tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">LevelEvaluation</span><span class="p">(</span><span class="nb">intval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">]),</span> 
+	           <span class="nb">intval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">&quot;amount&quot;</span><span class="p">]));</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="p">{</span>
+	<span class="nv">$tmp</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]);</span> <span class="c1">// Important!</span>
+	<span class="nv">$tmp</span><span class="o">-&gt;</span><span class="na">setResult</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$tmp</span><span class="o">-&gt;</span><span class="na">getNextProb</span><span class="p">();</span>
+<span class="nv">$result</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span>  <span class="nb">serialize</span><span class="p">(</span><span class="nv">$tmp</span><span class="p">);</span> <span class="c1">// Important!</span>
+
+<span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span> <span class="c1">// Return JSON to javascript code</span>
+
+<span class="cp">?&gt;</span><span class="x"></span></code></pre></div>
+
+<p>这里面数据在前后端的传输十分清楚，也就不用赘述了。
+这个DEMO中还有很多和class有关的知识，因为我也没仔细研究class，因此留到下回分解啦。</p>
+
+<h1 id="section-1">总结</h1>
+
+<p>这次的php学习总体来说还是比较顺利的，语法方面没有遇到什么问题，交互的地方看w3school基本就学明白了。
+而且网上php的资料非常多（特别是中文的），这也减少了很多学习的压力。
+最后做出的这个DEMO还是可以用的，学长那边测试了一下基本没什么问题。</p>
+
+<p>更多php的高级功能，以及和数据库的交互，就等这周继续学习了。
+总体上说对整个开发还是很有信心的。O(∩_∩)O。</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Zhiheng's Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Zhiheng's Blog</li>
+          <li><a href="mailto:zhiheng3@live.cn">zhiheng3@live.cn</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/zhiheng3">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">zhiheng3</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">商业Blog的广告看着太烦了，不过还没搞清楚Jekyll的高级用法。先把技术博客发了再慢慢研究>_<~
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
