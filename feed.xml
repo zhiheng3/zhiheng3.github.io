@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zhiheng's Blog</title>
-    <description>商业Blog的广告看着太烦了，不过还没搞清楚Jekyll的高级用法。先把技术博客发了再慢慢研究&gt;_&lt;~
+    <description>商业Blog的广告看着太烦了，不过还没搞清楚Jekyll的高级用法。先把技术博客发了再慢慢研究&gt;_&lt;~（过了两周还是这样，果然还是太懒了。。。）
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 28 Oct 2014 23:05:11 +0800</pubDate>
-    <lastBuildDate>Tue, 28 Oct 2014 23:05:11 +0800</lastBuildDate>
+    <pubDate>Tue, 28 Oct 2014 23:07:57 +0800</pubDate>
+    <lastBuildDate>Tue, 28 Oct 2014 23:07:57 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
